@@ -1,0 +1,7 @@
+policy,end_reason,episodes
+Baseline PPO,body_contact,8
+Baseline PPO,rest,85
+Baseline PPO,time_limit,7
+Legacy potential PPO,body_contact,12
+Legacy potential PPO,rest,77
+Legacy potential PPO,time_limit,11

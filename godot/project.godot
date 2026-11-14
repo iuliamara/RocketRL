@@ -1,0 +1,23 @@
+; Godot 4 project configuration.
+config_version=5
+
+[application]
+config/name="RocketRL 3D"
+run/main_scene="res://landing.tscn"
+config/use_custom_user_dir=true
+
+[debug]
+file_logging/enable_file_logging=false
+
+[display]
+window/size/viewport_width=1120
+window/size/viewport_height=720
+
+[physics]
+common/physics_ticks_per_second=60
+3d/default_gravity=3.2
+
+[rendering]
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
+environment/defaults/default_clear_color=Color(0.075, 0.115, 0.17, 1)

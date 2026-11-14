@@ -1,5 +1,7 @@
 # RocketRL — Project Progress & Experimental Log
 
+The 14 November 2026 implementation and reproduction record starts in [Section 12](#12--14-november-2026--reproduction-and-experimental-extensions). Sections 1–11 are the historical October snapshot.
+
 **Project:** Autonomous Rocket Landing with Deep Reinforcement Learning  
 **Last updated:** 26 October 2026  
 **Current stage:** Gymnasium/Box2D LunarLander experiments completed through three ~1-million-step PPO policies; next stage is trajectory diagnostics and reward-objective design.  
@@ -550,3 +552,38 @@ The best observed policy is **standard PPO trained for approximately one million
 The terminal precision-reward experiment and potential-based shaping experiment **did not improve strict landing success** in their respective single-seed runs. Their evaluations also illustrate why training reward, original-environment reward, and strict physical landing criteria must be kept separate.
 
 The next justified step is **diagnostic analysis**, not another uncontrolled million-step reward experiment. The central challenge remains the mismatch between **safe resting** and **precise resting on the target platform**. The project currently provides a reproducible initial study and a strong foundation for subsequent custom-environment work, but stronger scientific claims require a more precise success detector and multiple training seeds.
+
+---
+
+## 12. 14 November 2026 — Reproduction and experimental extensions
+
+### A — Shared evaluation and training infrastructure
+
+The audit found four retained PPO archives, four TensorBoard event files, two trajectory CSVs, two historical plots, and an empty Godot directory. Checkpoint metadata confirms seed 42 and gamma 0.99 across all four archives. The early baseline contains 301,056 steps. Each remaining archive contains 1,001,472 steps. The repository was clean at commit `5807f52`.
+
+Centralized training recipes in `lunar_lander/config.py`, environment construction in `environment.py`, and physical outcome checks in `metrics.py`. Training writes a new directory containing the configuration, Monitor-backed TensorBoard logs, periodic policy snapshots, and a hashed final model. Baseline continuation records its source hash and inherited timestep count. Resuming reloads weights and the optimizer but starts fresh environment rollouts. The CLI uses module entry points from the repository root. The original archives and historical outputs remain the evidence for E0–E4.
+
+On Python 3.12.4, Gymnasium 1.4.0, Box2D 2.3.10, SB3 2.9.0, and PyTorch 2.14.1, deterministic checkpoint replays reproduced all four documented returns and strict rates at their reported precision on seeds 1000–1099. The 300k checkpoint also recorded 60 safe rests. Fresh training and continuation smoke tests ran 2,048 transitions each. Continuation advanced from 301,056 to 303,104 steps. Six initial controlled reward and metric tests passed. Full evaluation results and held-out results are in `docs/RESULTS.md`.
+
+### B — Paired trajectory diagnostics
+
+Verified matching reset states across all 100 test seeds for the baseline and historical potential policy. New telemetry captures the initial state, per-tick observation in Box2D coordinates, contact flags, and actions. `lunar_lander/plot_trajectories.py` generates episode, outcome, and paired comparisons. Peak center error averaged 2.77 versus 4.49 units, respectively. Lateral speed at the first pre-contact descending sample at or below six units above the pad averaged 0.30 versus 0.92 units/s. First terrain contact was 0.41 versus 1.66 units beyond the pad on average, with zero entered when the center was inside the interval. Greater lateral motion is measured directly. Evidence about when corrections began is conditional on a threshold-based detector with very unequal coverage. The report states the detector and its limitations.
+
+### C and D — Reward design and planned training budgets
+
+The corrected potential keeps the final observation's potential for a pure time-limit cutoff. SB3 bootstraps such cutoffs using the terminal observation. True termination uses zero potential, including when both flags are true. The legacy configuration retains the historical cutoff behavior. The explicit landing objective penalizes outward speed during low descent, adds an engine-use charge and small time cost, and applies a terminal strict-landing adjustment. Its hypothesis is that charging for drift near the pad and scoring the strict outcome will improve precision. Increased engine penalties and failure penalties could instead promote cheap off-pad behavior or excessive fuel use to avoid a failed landing. Review outcomes, original returns, length, and engine-use proxies together.
+
+The pilot uses three recipes and three independent training seeds at 20,480 steps per run, or 184,320 total training transitions. At the measured smoke-test rate of roughly 1,300 steps/s, training is on the order of several minutes in total, plus 1,800 evaluation episodes. The full plan requires 9,013,248 actual PPO transitions at 1,001,472 steps per run. Based on historical 450–720 steps/s, budget approximately 3.5–5.6 CPU hours plus evaluation. Bootstrap intervals in the pilot resample training-seed summaries, with only three observations per recipe.
+
+### E and F — Initial Godot run budget
+
+The toy Godot simulator uses a Y-up rigid body, fixed 60 Hz integration, continuous throttle and two gimbal commands held for four ticks, a separate attitude stabilizer, fuel-dependent mass, and collision-driven scoring. The local engine is the checksum-verified Godot 4.5.1 Windows release. A portable, headless run and the Gymnasium interface checker passed. Two seeded engine-off runs reached identical hard-contact outcomes at physics tick 85 and used zero fuel.
+
+Planned 3D initial training uses 32,768 PPO decisions with a maximum of 131,072 physics ticks, followed by 30 matched test seeds per condition. The budget is a short CPU prototype (estimate 1–10 minutes for training pending measured timing). The benchmark compares PPO and a position/velocity feedback controller on nominal conditions and seven one-factor perturbations. The 3D decision rule and fuel measure are simulator-specific. Final results and limitations are recorded in the report.
+
+### Validation and results
+
+- **A and B.** All four checkpoint replays matched the historical means and counts where recorded. Both retained baseline and potential CSVs matched the new replay step for step, including 45,013 and 48,233 post-reset rows, respectively, with zero coordinate differences. Episode records confirm the same actions and final outcome for every historical seed.
+- **C and D.** The three-recipe pilot completed nine independent runs, 184,320 training transitions, and 1,800 evaluation episodes. All nine had zero safe rests and zero strict landings across both splits. The historical and held-out replays added another 800 evaluations of the four original checkpoints. The long baseline led on both splits. The pilot does not establish comparative precision at mature training budgets. The matched million-step study did not run in this session.
+- **E and F.** Godot PPO completed 32,768 control decisions in 195 seconds. The benchmark ran 480 episodes. PPO landed 29/30 nominal runs and 0/30 wind runs. PD landed 30/30 in every condition. Godot RL Agents 0.8.2 declares older dependency ceilings. The tested integration uses its Python protocol core with a small Gymnasium adapter and a scene-side protocol implementation. The adapter restores seeded resets and distinguishes true termination from time-limit truncation. The reproducible Godot integration check passed, including fixed action duration, fuel use, repeatability, and truncation after 900 ticks. The Godot policy uses an inner-loop attitude stabilizer. Benchmarks cover one 3D training seed and individual perturbations.
+- **G.** The README now includes installation, execution, architecture, and a résumé entry. `docs/RESULTS.md` links to plots, benchmark data, and the retained 3D checkpoint. Both simulators rendered successful and unsuccessful trials, published as four H.264 clips with screenshots. `TECHNICAL_EXPLANATIONS.md` covers the RL, physics, and integration decisions.

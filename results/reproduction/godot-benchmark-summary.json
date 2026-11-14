@@ -1,0 +1,310 @@
+{
+  "checkpoint_sha256": "ac6beac8570e0b01f3bee7a45c120410b1a7b8b63ac7d90c0a54d95fad7e2137",
+  "seeds": [
+    3000,
+    3001,
+    3002,
+    3003,
+    3004,
+    3005,
+    3006,
+    3007,
+    3008,
+    3009,
+    3010,
+    3011,
+    3012,
+    3013,
+    3014,
+    3015,
+    3016,
+    3017,
+    3018,
+    3019,
+    3020,
+    3021,
+    3022,
+    3023,
+    3024,
+    3025,
+    3026,
+    3027,
+    3028,
+    3029
+  ],
+  "conditions": {
+    "nominal": {},
+    "high": {
+      "altitude_offset": 3
+    },
+    "wide": {
+      "offset_scale": 2.0
+    },
+    "fast": {
+      "speed_scale": 1.7
+    },
+    "heavy": {
+      "payload": 0.3
+    },
+    "low_thrust": {
+      "efficiency": 0.8
+    },
+    "wind": {
+      "wind": 0.65
+    },
+    "low_fuel": {
+      "fuel_fraction": 0.55
+    }
+  },
+  "results": [
+    {
+      "policy": "PPO",
+      "condition": "nominal",
+      "episodes": 30,
+      "success_rate": 0.9666666666666667,
+      "mean_center_error": 1.1380216221014658,
+      "mean_fuel_used": 0.19494980467419237,
+      "mean_impact_speed": 0.3075193410118421,
+      "mean_terminal_up_dot": 0.9999954144159953,
+      "mean_return": 24.05663675808851,
+      "landings": 29,
+      "reasons": {
+        "landing": 29,
+        "off_pad": 1
+      }
+    },
+    {
+      "policy": "PD",
+      "condition": "nominal",
+      "episodes": 30,
+      "success_rate": 1,
+      "mean_center_error": 0.2194249225159486,
+      "mean_fuel_used": 0.11643315785336841,
+      "mean_impact_speed": 0.5060686161120733,
+      "mean_terminal_up_dot": 0.9999998509883881,
+      "mean_return": 28.428694775885695,
+      "landings": 30,
+      "reasons": {
+        "landing": 30
+      }
+    },
+    {
+      "policy": "PPO",
+      "condition": "high",
+      "episodes": 30,
+      "success_rate": 0.8666666666666667,
+      "mean_center_error": 1.1922072172164915,
+      "mean_fuel_used": 0.20426134521227537,
+      "mean_impact_speed": 0.36418704589207973,
+      "mean_terminal_up_dot": 0.999993630250295,
+      "mean_return": 22.506026299525075,
+      "landings": 26,
+      "reasons": {
+        "landing": 26,
+        "off_pad": 4
+      }
+    },
+    {
+      "policy": "PD",
+      "condition": "high",
+      "episodes": 30,
+      "success_rate": 1,
+      "mean_center_error": 0.041174493854244563,
+      "mean_fuel_used": 0.1824789882763391,
+      "mean_impact_speed": 0.48992544710636143,
+      "mean_terminal_up_dot": 1.0,
+      "mean_return": 29.66310184526938,
+      "landings": 30,
+      "reasons": {
+        "landing": 30
+      }
+    },
+    {
+      "policy": "PPO",
+      "condition": "wide",
+      "episodes": 30,
+      "success_rate": 0.6666666666666666,
+      "mean_center_error": 1.6022699301441503,
+      "mean_fuel_used": 0.1915403783167195,
+      "mean_impact_speed": 0.34124472488959623,
+      "mean_terminal_up_dot": 0.9999932984511056,
+      "mean_return": 16.25408392898527,
+      "landings": 20,
+      "reasons": {
+        "landing": 20,
+        "off_pad": 10
+      }
+    },
+    {
+      "policy": "PD",
+      "condition": "wide",
+      "episodes": 30,
+      "success_rate": 1,
+      "mean_center_error": 0.46940463880697886,
+      "mean_fuel_used": 0.11733464534034324,
+      "mean_impact_speed": 0.5612433632214865,
+      "mean_terminal_up_dot": 0.9999974568684896,
+      "mean_return": 31.09316673351179,
+      "landings": 30,
+      "reasons": {
+        "landing": 30
+      }
+    },
+    {
+      "policy": "PPO",
+      "condition": "fast",
+      "episodes": 30,
+      "success_rate": 0.9333333333333333,
+      "mean_center_error": 1.1585210005442301,
+      "mean_fuel_used": 0.1975498238090424,
+      "mean_impact_speed": 0.36408558636903765,
+      "mean_terminal_up_dot": 0.9999918977419535,
+      "mean_return": 22.611120594582697,
+      "landings": 28,
+      "reasons": {
+        "landing": 28,
+        "off_pad": 2
+      }
+    },
+    {
+      "policy": "PD",
+      "condition": "fast",
+      "episodes": 30,
+      "success_rate": 1,
+      "mean_center_error": 0.25159556120634075,
+      "mean_fuel_used": 0.11535920248478654,
+      "mean_impact_speed": 0.5115037292242051,
+      "mean_terminal_up_dot": 0.9999996860822042,
+      "mean_return": 28.204626946548842,
+      "landings": 30,
+      "reasons": {
+        "landing": 30
+      }
+    },
+    {
+      "policy": "PPO",
+      "condition": "heavy",
+      "episodes": 30,
+      "success_rate": 0.9666666666666667,
+      "mean_center_error": 0.857080996284882,
+      "mean_fuel_used": 0.1543388459134402,
+      "mean_impact_speed": 0.49724097251892097,
+      "mean_terminal_up_dot": 0.9999898850917815,
+      "mean_return": 25.535281136667326,
+      "landings": 29,
+      "reasons": {
+        "landing": 29,
+        "hard_contact": 1
+      }
+    },
+    {
+      "policy": "PD",
+      "condition": "heavy",
+      "episodes": 30,
+      "success_rate": 1,
+      "mean_center_error": 0.2193802709380786,
+      "mean_fuel_used": 0.14139862360590016,
+      "mean_impact_speed": 0.5059994578361511,
+      "mean_terminal_up_dot": 0.9999998490015666,
+      "mean_return": 28.378016277464035,
+      "landings": 30,
+      "reasons": {
+        "landing": 30
+      }
+    },
+    {
+      "policy": "PPO",
+      "condition": "low_thrust",
+      "episodes": 30,
+      "success_rate": 0.8,
+      "mean_center_error": 1.005222986638546,
+      "mean_fuel_used": 0.13945961775003618,
+      "mean_impact_speed": 0.6138896852731704,
+      "mean_terminal_up_dot": 0.9999844431877136,
+      "mean_return": 19.414033799198393,
+      "landings": 24,
+      "reasons": {
+        "landing": 24,
+        "off_pad": 3,
+        "hard_contact": 3
+      }
+    },
+    {
+      "policy": "PD",
+      "condition": "low_thrust",
+      "episodes": 30,
+      "success_rate": 1,
+      "mean_center_error": 0.21926301320393882,
+      "mean_fuel_used": 0.14400208667947167,
+      "mean_impact_speed": 0.5057856569687526,
+      "mean_terminal_up_dot": 0.9999998529752095,
+      "mean_return": 28.372211637265455,
+      "landings": 30,
+      "reasons": {
+        "landing": 30
+      }
+    },
+    {
+      "policy": "PPO",
+      "condition": "wind",
+      "episodes": 30,
+      "success_rate": 0,
+      "mean_center_error": 4.854813289642333,
+      "mean_fuel_used": 0.20361412326108347,
+      "mean_impact_speed": 0.4035046050945918,
+      "mean_terminal_up_dot": 0.9999897420406342,
+      "mean_return": -15.892726820410443,
+      "landings": 0,
+      "reasons": {
+        "off_pad": 29,
+        "hard_contact": 1
+      }
+    },
+    {
+      "policy": "PD",
+      "condition": "wind",
+      "episodes": 30,
+      "success_rate": 1,
+      "mean_center_error": 0.22341060563921927,
+      "mean_fuel_used": 0.117698244620777,
+      "mean_impact_speed": 0.5064785063266755,
+      "mean_terminal_up_dot": 0.9999998331069946,
+      "mean_return": 28.416899463959236,
+      "landings": 30,
+      "reasons": {
+        "landing": 30
+      }
+    },
+    {
+      "policy": "PPO",
+      "condition": "low_fuel",
+      "episodes": 30,
+      "success_rate": 0.9666666666666667,
+      "mean_center_error": 1.1328672150770818,
+      "mean_fuel_used": 0.1698543201863352,
+      "mean_impact_speed": 0.30503060569365814,
+      "mean_terminal_up_dot": 0.999995603164037,
+      "mean_return": 24.117248898362288,
+      "landings": 29,
+      "reasons": {
+        "landing": 29,
+        "off_pad": 1
+      }
+    },
+    {
+      "policy": "PD",
+      "condition": "low_fuel",
+      "episodes": 30,
+      "success_rate": 1,
+      "mean_center_error": 0.2194200957814852,
+      "mean_fuel_used": 0.1014633162410723,
+      "mean_impact_speed": 0.5060537447532018,
+      "mean_terminal_up_dot": 0.9999998490015666,
+      "mean_return": 28.458643865911448,
+      "landings": 30,
+      "reasons": {
+        "landing": 30
+      }
+    }
+  ]
+}

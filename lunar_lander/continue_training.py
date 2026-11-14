@@ -1,33 +1,12 @@
-import gymnasium as gym
-from stable_baselines3 import PPO
-from stable_baselines3.common.monitor import Monitor
+if not __package__:
+    from _entrypoint import package_name
+
+    __package__ = package_name()
 
 
-def main():
-    #Create the original training environment
-    env = Monitor(gym.make("LunarLander-v3"))
-
-    #Load my previous trained AI
-    model = PPO.load(
-        "models/ppo_lunar_lander",
-        env=env,
-        device="cpu",
-        tensorboard_log="runs/"
-    )
-
-    model.learn(
-        total_timesteps=700_000,
-        reset_num_timesteps=False,
-        tb_log_name="baseline_ppo"
-    )
-
-    #Preserve the new model separately
-    model.save("models/ppo_lunar_lander_1m")
-
-    env.close()
-
-    print("Extended training completed.")
+from .config import MODEL_DIR
+from .train import main
 
 
 if __name__ == "__main__":
-    main()
+    main(default_steps=700_000, default_resume=MODEL_DIR / "ppo_lunar_lander.zip")

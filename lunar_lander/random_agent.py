@@ -1,7 +1,14 @@
-import gymnasium as gym
+if not __package__:
+    from _entrypoint import package_name
+
+    __package__ = package_name()
+
+
+from .environment import make_environment
 
 def main():
-    env = gym.make("LunarLander-v3", render_mode = "human")
+    env = make_environment(render_mode="human")
+    env.action_space.seed(42)
 
     for episode in range(3):
         observation, info = env.reset(seed=42 + episode)

@@ -1,0 +1,5 @@
+baseline,bad_contact,no_safe_rest,off_pad,strict_landing
+bad_contact,1,1,3,2
+no_safe_rest,0,7,6,2
+off_pad,1,3,18,2
+strict_landing,0,12,27,15

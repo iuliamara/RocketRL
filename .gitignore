@@ -218,3 +218,7 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# New experiment outputs, local engine downloads, and editor cache
+/artifacts/
+/godot/.godot/

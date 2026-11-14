@@ -1,0 +1,3 @@
+# Install alongside the root requirements with --no-deps.
+# This project uses the compatible GodotEnv protocol core, with its own Gymnasium adapter.
+godot-rl==0.8.2
